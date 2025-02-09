@@ -93,6 +93,18 @@ function update(timestamp) {
         }
     }
 
+    if (keys.has("PageUp")) {
+        if (speed < 10) {
+            speed += 1
+        }
+    }
+
+    if (keys.has("PageDown")) {
+        if (speed > 1) {
+            speed -= 1
+        }
+    }
+
     ball.x += ball.dx * speed;
     ball.y += ball.dy * speed;
 

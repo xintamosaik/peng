@@ -5,6 +5,7 @@ A minimalist implementation of the classic Pong game using vanilla JavaScript an
 ## Features
 
 - Two-player local gameplay (Arrow keys for left paddle, W/S for right paddle)
+- Adjustable speed (PageUp / PageDown)
 - Smooth paddle movement
 - Score tracking
 - Collision detection
