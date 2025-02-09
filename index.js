@@ -27,15 +27,15 @@ const right = {
  * Input
  */
 keys = new Set()
-function onKeyDown (event) { 
+function onKeyDown(event) {
     keys.add(event.key);
 }
-document.addEventListener("keydown", onKeyDown) 
+document.addEventListener("keydown", onKeyDown)
 
-function onKeyUp (event) { 
+function onKeyUp(event) {
     keys.delete(event.key)
 }
-document.addEventListener("keyup", onKeyUp) 
+document.addEventListener("keyup", onKeyUp)
 
 /**
  * Game Loop Components
@@ -48,12 +48,12 @@ let speed = 2
 /**
  * Update
  */
-function update(timestamp){ 
+function update(timestamp) {
     if (keys.has("ArrowUp")) {
         left.y -= frameTime + speed
     }
 
-    if (keys.has("ArrowDown") ) {
+    if (keys.has("ArrowDown")) {
         left.y += frameTime + speed
     }
 
@@ -61,7 +61,7 @@ function update(timestamp){
 
 /**
  * Draw
- */ 
+ */
 function draw() {
     ctx.clearRect(0, 0, main.width, main.height);
 
@@ -75,7 +75,7 @@ function draw() {
  * Loop
  */
 
-function step (timestamp) {
+function step(timestamp) {
 
     delta = timestamp - lastTime;
     if (delta >= frameTime) {
