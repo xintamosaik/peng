@@ -4,7 +4,7 @@ ctx.lineWidth = 10;
 ctx.strokeStyle = "lightgrey";
 ctx.fillStyle = "lightgrey";
 
-ctx.font = "50px monospace";
+ctx.font = "36px monospace";
 /**
  * Objects
  */
@@ -23,28 +23,38 @@ const right = {
     y: 360,
 };
 
-const test = {x:0,y:0}
 /**
  * Input
  */
 keys = new Set()
-function onKeyDown (event) { keys.add(event.key);}
+function onKeyDown (event) { 
+    keys.add(event.key);
+}
 document.addEventListener("keydown", onKeyDown) 
 
-function onKeyUp (event) { keys.delete(event.key)}
+function onKeyUp (event) { 
+    keys.delete(event.key)
+}
 document.addEventListener("keyup", onKeyUp) 
+
+/**
+ * Game Loop Components
+ */
+let lastTime = 0;
+let frameTime = 8;
+let delta = 0
+let speed = 2
 
 /**
  * Update
  */
-function update(){ 
-console.log(keys)
+function update(timestamp){ 
     if (keys.has("ArrowUp")) {
-        left.y -= 5
+        left.y -= frameTime + speed
     }
 
     if (keys.has("ArrowDown") ) {
-        left.y += 5
+        left.y += frameTime + speed
     }
 
 }
@@ -64,16 +74,15 @@ function draw() {
 /**
  * Loop
  */
-let start = 0;
-let reset = 10;
+
 function step (timestamp) {
-    const delta = timestamp - start;
-    if (delta > reset) {
-        start += reset;
-        update()
+
+    delta = timestamp - lastTime;
+    if (delta >= frameTime) {
+        lastTime = timestamp;
+        update(timestamp)
         draw()
 
-        ctx.fillText( `start ${start} timestamp: ${Math.floor(timestamp)} delta: ${Math.floor(delta)}`, 50, 50)        
     }
 
     requestAnimationFrame(step)
