@@ -7,6 +7,7 @@ const score = {
     left: 0,
     right: 0,
 }
+
 /**
  * Objects
  */
@@ -31,6 +32,7 @@ const center = {
     x: main.width / 2,
     y: main.height / 2,
 }
+
 const ball = {
     width: 20,
     height: 20,
@@ -119,8 +121,6 @@ function update(timestamp) {
         ball.dy = 1
     }
 
-
-
     const atLeft = (ball.x > left.x && ball.x < left.x + paddle.width)
     if (atLeft) {
         const touch = (ball.y > left.y && ball.y < left.y + paddle.height)
@@ -138,7 +138,6 @@ function update(timestamp) {
 /**
  * Draw
  */
-
 function draw() {
     ctx.clearRect(0, 0, main.width, main.height);
     ctx.fillStyle = "#111";
