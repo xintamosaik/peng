@@ -23,6 +23,8 @@ const right = {
     y: 360,
 };
 
+const PADDLE_MAX_Y = main.height - paddle.height;
+
 /**
  * Input
  */
@@ -57,7 +59,7 @@ function update(timestamp) {
     }
 
     if (keys.has("ArrowDown")) {
-        if (left.y < main.height - paddle.height)
+        if (left.y < PADDLE_MAX_Y)
         left.y += frameTime + speed
     }
 
@@ -69,12 +71,10 @@ function update(timestamp) {
     }
 
     if (keys.has("s")) {
-        if (right.y < main.height - paddle.height) {
+        if (right.y < PADDLE_MAX_Y) {
             right.y += frameTime + speed
         }
     }
-
-
 }
 
 /**
