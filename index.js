@@ -1,24 +1,26 @@
 const ctx = main.getContext("2d", { alpha: false });
 
 ctx.lineWidth = 10;
-
 ctx.font = "36px monospace";
+
 /**
  * Objects
  */
+const SIDE_MARGIN = 80;
+
 const paddle = {
     width: 40,
     height: 200,
 };
 
 const left = {
-    x: 80,
-    y: 360,
+    x: SIDE_MARGIN,
+    y: main.height / 2 - paddle.height / 2,
 };
 
 const right = {
-    x: main.width - 120,
-    y: 360,
+    x: main.width - SIDE_MARGIN - paddle.width,
+    y: main.height / 2 - paddle.height / 2,
 };
 
 const PADDLE_MAX_Y = main.height - paddle.height;
@@ -76,27 +78,18 @@ function update(timestamp) {
 /**
  * Draw
  */
-const LINE_HEIGHT = 1;
+
 function draw() {
     ctx.clearRect(0, 0, main.width, main.height);
-    ctx.fillStyle = "green";
+    ctx.fillStyle = "limegreen";
     ctx.fillRect(left.x, left.y, paddle.width, paddle.height);
-    ctx.fillRect(right.x, right.y, paddle.width, paddle.height);
-    ctx.fillStyle = "black";
-
-    for (let i = 0; i < 480; i++) {
-        ctx.fillRect(0, i * 2 * LINE_HEIGHT, main.width, LINE_HEIGHT)
-    }
-    
+    ctx.fillRect(right.x, right.y, paddle.width, paddle.height);  
 }
-
 
 /**
  * Loop
  */
-
 function step(timestamp) {
-
     delta = timestamp - lastTime;
     if (delta >= frameTime) {
         lastTime = timestamp;
