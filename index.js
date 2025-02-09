@@ -3,6 +3,8 @@ const ctx = main.getContext("2d", { alpha: false });
 ctx.lineWidth = 10;
 ctx.font = "36px monospace";
 
+let lastScore = 'none'
+
 const score = {
     left: 0,
     right: 0,
@@ -38,8 +40,8 @@ const ball = {
     height: 20,
     x: center.x - 10,
     y: center.y - 10,
-    dx: 1,
-    dy: 1,
+    dx: 0,
+    dy: 0,
 }
 
 const PADDLE_MAX_Y = main.height - paddle.height;
@@ -64,7 +66,7 @@ document.addEventListener("keyup", onKeyUp)
 let lastTime = 0;
 let frameTime = 8;
 let delta = 0
-let speed = 8
+let speed = 4
 
 /**
  * Update
@@ -105,6 +107,17 @@ function update(timestamp) {
         }
     }
 
+    if (keys.has(" ")) {
+        if (ball.dx === 0 && ball.dy === 0) {
+            ball.dx = 1
+            ball.dy = 1
+            
+        }
+    }
+
+
+
+
     ball.x += ball.dx * speed;
     ball.y += ball.dy * speed;
 
@@ -121,16 +134,18 @@ function update(timestamp) {
         score.left += 1
         ball.x = center.x;
         ball.y = center.y;
-        ball.dx = -1
-        ball.dy = 1
+        lastScore = "left"
+        ball.dx = 0
+        ball.dy = 0
     }
 
     if (ball.x <= 0) {
         score.right += 1
         ball.x = center.x;
         ball.y = center.y;
-        ball.dx = 1
-        ball.dy = 1
+        lastScore = "right"
+        ball.dx = 0
+        ball.dy = 0
     }
 
     const atLeft = (ball.x > left.x && ball.x < left.x + paddle.width)
