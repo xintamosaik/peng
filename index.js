@@ -81,9 +81,13 @@ function update(timestamp) {
 
 function draw() {
     ctx.clearRect(0, 0, main.width, main.height);
+    ctx.fillStyle = "#111";
+    ctx.fillRect(0, 0, main.width, main.height);
     ctx.fillStyle = "limegreen";
     ctx.fillRect(left.x, left.y, paddle.width, paddle.height);
     ctx.fillRect(right.x, right.y, paddle.width, paddle.height);  
+    
+    ctx.fillText("0:0", main.width / 2 - 42, 40)
 }
 
 /**
