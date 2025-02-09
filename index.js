@@ -70,24 +70,24 @@ let speed = 8
  * Update
  */
 function update(timestamp) {
-    if (keys.has("ArrowUp")) {
+    if (keys.has("w")) {
         if (left.y > 0) {
             left.y -= frameTime + speed
         }
     }
 
-    if (keys.has("ArrowDown")) {
+    if (keys.has("s")) {
         if (left.y < PADDLE_MAX_Y)
             left.y += frameTime + speed
     }
 
-    if (keys.has("w")) {
+    if (keys.has("ArrowUp")) {
         if (right.y > 0) {
             right.y -= frameTime + speed
         }
     }
 
-    if (keys.has("s")) {
+    if (keys.has("ArrowDown")) {
         if (right.y < PADDLE_MAX_Y) {
             right.y += frameTime + speed
         }
