@@ -127,7 +127,7 @@ function update(timestamp) {
         if (touch) { ball.dx = 1 }
     }
 
-    const atRight = (ball.x > right.x && ball.x < right.x + paddle.height)
+    const atRight = (ball.x > right.x && ball.x < right.x + paddle.width)
     if (atRight) {
         console.log("here")
 
