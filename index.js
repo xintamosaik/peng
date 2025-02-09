@@ -1,8 +1,6 @@
 const ctx = main.getContext("2d", { alpha: false });
 
 ctx.lineWidth = 10;
-ctx.strokeStyle = "lightgrey";
-ctx.fillStyle = "lightgrey";
 
 ctx.font = "36px monospace";
 /**
@@ -55,7 +53,6 @@ function update(timestamp) {
         if (left.y > 0) {
             left.y -= frameTime + speed
         }
-        
     }
 
     if (keys.has("ArrowDown")) {
@@ -67,7 +64,6 @@ function update(timestamp) {
         if (right.y > 0) {
             right.y -= frameTime + speed
         }
-        
     }
 
     if (keys.has("s")) {
@@ -80,12 +76,18 @@ function update(timestamp) {
 /**
  * Draw
  */
+const LINE_HEIGHT = 1;
 function draw() {
     ctx.clearRect(0, 0, main.width, main.height);
-
+    ctx.fillStyle = "green";
     ctx.fillRect(left.x, left.y, paddle.width, paddle.height);
     ctx.fillRect(right.x, right.y, paddle.width, paddle.height);
+    ctx.fillStyle = "black";
 
+    for (let i = 0; i < 480; i++) {
+        ctx.fillRect(0, i * 2 * LINE_HEIGHT, main.width, LINE_HEIGHT)
+    }
+    
 }
 
 
