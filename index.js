@@ -50,12 +50,30 @@ let speed = 2
  */
 function update(timestamp) {
     if (keys.has("ArrowUp")) {
-        left.y -= frameTime + speed
+        if (left.y > 0) {
+            left.y -= frameTime + speed
+        }
+        
     }
 
     if (keys.has("ArrowDown")) {
+        if (left.y < main.height - paddle.height)
         left.y += frameTime + speed
     }
+
+    if (keys.has("w")) {
+        if (right.y > 0) {
+            right.y -= frameTime + speed
+        }
+        
+    }
+
+    if (keys.has("s")) {
+        if (right.y < main.height - paddle.height) {
+            right.y += frameTime + speed
+        }
+    }
+
 
 }
 
