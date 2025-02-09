@@ -3,6 +3,10 @@ const ctx = main.getContext("2d", { alpha: false });
 ctx.lineWidth = 10;
 ctx.font = "36px monospace";
 
+const score = {
+    left: 0,
+    right: 0,
+}
 /**
  * Objects
  */
@@ -22,6 +26,19 @@ const right = {
     x: main.width - SIDE_MARGIN - paddle.width,
     y: main.height / 2 - paddle.height / 2,
 };
+
+const center = {
+    x: main.width / 2,
+    y: main.height / 2,
+}
+const ball = {
+    width: 20,
+    height: 20,
+    x: center.x - 10,
+    y: center.y - 10,
+    dx: 1,
+    dy: 1,
+}
 
 const PADDLE_MAX_Y = main.height - paddle.height;
 
@@ -45,7 +62,7 @@ document.addEventListener("keyup", onKeyUp)
 let lastTime = 0;
 let frameTime = 8;
 let delta = 0
-let speed = 2
+let speed = 8
 
 /**
  * Update
@@ -59,7 +76,7 @@ function update(timestamp) {
 
     if (keys.has("ArrowDown")) {
         if (left.y < PADDLE_MAX_Y)
-        left.y += frameTime + speed
+            left.y += frameTime + speed
     }
 
     if (keys.has("w")) {
@@ -73,6 +90,51 @@ function update(timestamp) {
             right.y += frameTime + speed
         }
     }
+
+    ball.x += ball.dx * speed;
+    ball.y += ball.dy * speed;
+
+
+    if (ball.y >= (main.height - ball.height)) {
+        ball.dy = -1
+    }
+
+    if (ball.y <= 0) {
+        ball.dy = 1
+    }
+
+    if (ball.x >= main.width - ball.width) {
+        score.left += 1
+        ball.x = center.x;
+        ball.y = center.y;
+        ball.dx = -1
+        ball.dy = 1
+    }
+
+    if (ball.x <= 0) {
+        score.right += 1
+        ball.x = center.x;
+        ball.y = center.y;
+        ball.dx = 1
+        ball.dy = 1
+    }
+
+
+
+    const atLeft = (ball.x > left.x && ball.x < left.x + paddle.width)
+    if (atLeft) {
+        const touch = (ball.y > left.y && ball.y < left.y + paddle.height)
+        if (touch) { ball.dx = 1 }
+    }
+
+    const atRight = (ball.x > right.x && ball.x < right.x + paddle.height)
+    if (atRight) {
+        console.log("here")
+
+        const touch = (ball.y > right.y && ball.y < right.y + paddle.height)
+        if (touch) { ball.dx = -1 }
+    }
+
 }
 
 /**
@@ -85,9 +147,9 @@ function draw() {
     ctx.fillRect(0, 0, main.width, main.height);
     ctx.fillStyle = "limegreen";
     ctx.fillRect(left.x, left.y, paddle.width, paddle.height);
-    ctx.fillRect(right.x, right.y, paddle.width, paddle.height);  
-    
-    ctx.fillText("0:0", main.width / 2 - 42, 40)
+    ctx.fillRect(right.x, right.y, paddle.width, paddle.height);
+    ctx.fillRect(ball.x, ball.y, ball.width, ball.height);
+    ctx.fillText(`${score.left} : ${score.right}`, main.width / 2 - 42, 40)
 }
 
 /**
